@@ -1,27 +1,70 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 
 <head>
-  <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-  <title>General Nitin</title>
-  <style type="text/css">
-    .content {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv='Content-Type' content='text/html;charset=UTF-8' />
+    <title>SAPUI5 - SPA</title>
+    <script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_horizon_dark" data-sap-ui-xx-bindingSyntax="complex" data-sap-ui-compatVersion="edge"
+        data-sap-ui-async="true">
+        </script>
+    <script>
+        sap.ui.require([
+            "sap/ui/core/Core"
+        ], (oCore) => {
+            sap.ui.getCore().loadLibrary("sap.ui.core", {
+                async: true,
+            })
+                .then(() => {
+                    let view = new sap.ui.core.mvc.View("view");
+                    view.placeAt("uiArea");
+                    sap.ui.getCore().loadLibrary("sap.m", {
+                        async: true,
+                    })
+                        .then(() => {
+                            let messageStrip = new sap.m.MessageStrip("msgStrip", {
+                                text: "This Page is Under Construction",
+                                showCloseButton: true,
+                                showIcon: true,
+                                type: "Warning"
+                            });
+                            // messageStrip.setTitle("Welcome");
+                            // page.setTitleAlignment(sap.m.TitleAlignment.Center)
+                            messageStrip.placeAt("view");
+                            
+                            let page = new sap.m.Page("page");
+                            page.setTitle("Welcome");
+                            page.setTitleAlignment(sap.m.TitleAlignment.Center)
+                            page.placeAt("view");
 
-    h1 {
-      font-size: 3rem;
-      font-family: Roboto, sans-serif;
-    }
-  </style>
+                            let panel = new sap.m.Panel("panel");
+                            panel.setHeaderText("About Me:");
+                            // panel.setExpandable(true);
+                            console.log(panel.getHeight());
+                            page.addContent(panel);
+                            panel.placeAt("view");
+
+                            let label = new sap.m.Label("label");
+                            label.setText("Hello World");
+                            label.setTextAlign("Right")
+                            panel.addContent(label);
+
+                            // let button = new sap.m.Button("button");
+                            // button.setText("Hello World");
+                            // button.attachPress(function () {
+                            //     sap.m.MessageToast.show("Hello World");
+                            // });
+                            // panel.addContent(button);
+                        });
+                });
+        });
+
+    </script>
 </head>
 
-<body>
-  <div class="content">
-    <h1>The website is under maintenance.</h1>
-  </div>
+<body class="sapUiBody">
+    <div id="uiArea"></div>
+</body>
 
 </html>
