@@ -13,50 +13,110 @@
         sap.ui.require([
             "sap/ui/core/Core"
         ], (oCore) => {
-            sap.ui.getCore().loadLibrary("sap.ui.core", {
+
+            const sapCore = sap.ui.getCore().loadLibrary("sap.ui.core", {
                 async: true,
-            })
-                .then(() => {
-                    let view = new sap.ui.core.mvc.View("view");
-                    view.placeAt("uiArea");
-                    sap.ui.getCore().loadLibrary("sap.m", {
-                        async: true,
-                    })
-                        .then(() => {
-                            let messageStrip = new sap.m.MessageStrip("msgStrip", {
-                                text: "This Page is Under Construction 🥺🙏",
-                                showCloseButton: true,
-                                showIcon: true,
-                                type: "Warning"
-                            });
-                            // messageStrip.setTitle("Welcome");
-                            // page.setTitleAlignment(sap.m.TitleAlignment.Center)
-                            messageStrip.placeAt("view");
-                            
-                            let page = new sap.m.Page("page");
-                            page.setTitle("Welcome To My Page 👋");
-                            page.setTitleAlignment(sap.m.TitleAlignment.Center)
-                            page.placeAt("view");
+            });
 
-                            let panel = new sap.m.Panel("panel");
-                            panel.setHeaderText("About Me:");
-                            // panel.setExpandable(true);
-                            console.log(panel.getHeight());
-                            page.addContent(panel);
-                            panel.placeAt("view");
+            const sapM = sap.ui.getCore().loadLibrary("sap.m", {
+                async: true,
+            });
 
-                            let label = new sap.m.Label("label");
-                            label.setText("I am Nitin 👨🏼‍🦰");
-                            label.setTextAlign("Right")
-                            panel.addContent(label);
-                            // let button = new sap.m.Button("button");
-                            // button.setText("Hello World");
-                            // button.attachPress(function () {
-                            //     sap.m.MessageToast.show("Hello World");
-                            // });
-                            // panel.addContent(button);
-                        });
+            // const sapMvc = sap.ui.getCore().loadLibrary("sap.ui.core.mvc", {
+            //     async: true,
+            // });
+
+            // const sapGrid = sap.ui.getCore().loadLibrary("sap.ui.layout.cssgrid", {
+            //     async: true,
+            // });
+
+            // const sapF = sap.ui.getCore().loadLibrary("sap.f", {
+            //     async: true,
+            // });
+
+            Promise.all([sapCore, sapM]).then(responses => {
+                let view = new sap.ui.core.mvc.View("view");
+                view.placeAt("uiArea");
+                let messageStrip = new sap.m.MessageStrip("msgStrip", {
+                    text: "This Page is Under Construction 🥺🙏",
+                    showCloseButton: true,
+                    showIcon: true,
+                    type: "Warning"
                 });
+                // messageStrip.setTitle("Welcome");
+                // page.setTitleAlignment(sap.m.TitleAlignment.Center)
+                messageStrip.placeAt("view");
+
+                let page = new sap.m.Page("page");
+                page.setTitle("Welcome To My Page 👋");
+                page.setTitleAlignment(sap.m.TitleAlignment.Center)
+                page.placeAt("view");
+
+                let panel = new sap.m.Panel("panel");
+                panel.setHeaderText("About Me:");
+                panel.setExpandable(true);
+                console.log(panel.getHeight());
+                page.addContent(panel);
+                panel.placeAt("view");
+
+                let label = new sap.m.Label("label");
+                label.setText("I am Nitin 👨🏼‍🦰");
+                label.setTextAlign("Right")
+                panel.addContent(label);
+
+                // let gridList = new sap.f.GridList("gridList", {
+                //     id: "gridList",
+                //     headerText: "GridList header",
+                //     items: "{/items}"
+                // });
+                // panel.addContent(gridList);
+
+            });
+
+            // sap.ui.getCore().loadLibrary("sap.ui.core", {
+            //     async: true,
+            // })
+            //     .then(() => {
+            //         let view = new sap.ui.core.mvc.View("view");
+            //         view.placeAt("uiArea");
+            //         sap.ui.getCore().loadLibrary("sap.m", {
+            //             async: true,
+            //         })
+            //             .then(() => {
+            //                 let messageStrip = new sap.m.MessageStrip("msgStrip", {
+            //                     text: "This Page is Under Construction 🥺🙏",
+            //                     showCloseButton: true,
+            //                     showIcon: true,
+            //                     type: "Warning"
+            //                 });
+            //                 // messageStrip.setTitle("Welcome");
+            //                 // page.setTitleAlignment(sap.m.TitleAlignment.Center)
+            //                 messageStrip.placeAt("view");
+
+            //                 let page = new sap.m.Page("page");
+            //                 page.setTitle("Welcome To My Page 👋");
+            //                 page.setTitleAlignment(sap.m.TitleAlignment.Center)
+            //                 page.placeAt("view");
+
+            //                 let panel = new sap.m.Panel("panel");
+            //                 panel.setHeaderText("About Me:");
+            //                 // panel.setExpandable(true);
+            //                 console.log(panel.getHeight());
+            //                 page.addContent(panel);
+            //                 panel.placeAt("view");
+
+            //                 let label = new sap.m.Label("label");
+            //                 label.setText("I am Nitin 👨🏼‍🦰");
+            //                 label.setTextAlign("Right")
+            //                 panel.addContent(label);
+            //                 // let button = new sap.m.Button("button");
+            //                 // button.setText("Hello World");
+            //                 // button.attachPress(function () {
+            //                 //     sap.m.MessageToast.show("Hello World");
+            //                 // });
+            //                 // panel.addContent(button);
+            //             });
+            //     });
         });
 
     </script>
