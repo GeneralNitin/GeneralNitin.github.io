@@ -4,9 +4,9 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv='Content-Type' content='text/html;charset=UTF-8' />
-    <title>SAPUI5 - SPA</title>
+    <title>General Nitin</title>
     <script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
-        data-sap-ui-theme="sap_horizon" data-sap-ui-xx-bindingSyntax="complex" data-sap-ui-compatVersion="edge"
+        data-sap-ui-theme="sap_horizon_dark" data-sap-ui-xx-bindingSyntax="complex" data-sap-ui-compatVersion="edge"
         data-sap-ui-async="true">
         </script>
     <script>
@@ -22,9 +22,9 @@
                 async: true,
             });
 
-            // const sapMvc = sap.ui.getCore().loadLibrary("sap.ui.core.mvc", {
-            //     async: true,
-            // });
+            const sapUxap = sap.ui.getCore().loadLibrary("sap.uxap", {
+                async: true,
+            });
 
             // const sapGrid = sap.ui.getCore().loadLibrary("sap.ui.layout.cssgrid", {
             //     async: true,
@@ -34,8 +34,64 @@
             //     async: true,
             // });
 
-            Promise.all([sapCore, sapM]).then(responses => {
-                let view = new sap.ui.core.mvc.View("view");
+            Promise.all([sapCore, sapM, sapUxap]).then(responses => {
+
+                let objectPageLayout = new sap.uxap.ObjectPageLayout("layout", {
+                    id: "ObjectPageLayout",
+                    upperCaseAnchorBar: false,
+                    showTitleInHeaderContent: true,
+                });
+
+                // var oHeaderTitle = new sap.uxap.ObjectPageHeader("headerForTest");
+                // oHeaderTitle.setObjectTitle("Nitjin Kumar");
+                // oHeaderTitle.setObjectImageShape(sap.m.AvatarShape.Circle);
+                // oHeaderTitle.setObjectSubtitle("Circle");
+                // oHeaderTitle.setShowPlaceholder(true)
+                // oHeaderTitle.setIsActionAreaAlwaysVisible(true);
+
+                // oHeaderTitle.addAction(new sap.uxap.ObjectPageHeaderActionButton({ icon: "sap-icon://edit", text: "Edit" }));
+                // oHeaderTitle.addAction(new sap.uxap.ObjectPageHeaderActionButton({ icon: "sap-icon://save", text: "Save" }));
+                // objectPageLayout.setHeaderTitle(oHeaderTitle);
+
+                
+
+                // Header
+                var oDynamicHeader = new sap.uxap.ObjectPageDynamicHeaderTitle("header");
+                var mBreadcrumbs = new sap.m.Breadcrumbs({ id: "breadcrumbsId", currentLocationText: "Home" });
+                // mBreadcrumbs.addLink(new sap.m.Link({text:"GitHub", }))
+                oDynamicHeader.setBreadcrumbs(mBreadcrumbs);
+                
+                let headerHBox = new sap.m.HBox();
+                headerHBox.addItem(new sap.m.Title({text:"Nitin Kumar", wrapping:true}))
+                oDynamicHeader.setExpandedHeading(headerHBox);
+
+                let headerFlexBox = new sap.m.FlexBox({fitContainer:true, alignItems:"Center"});
+                let headerAvatar = new sap.m.Avatar({src:"https://media-exp1.licdn.com/dms/image/C5603AQFEgUiV9zkGXw/profile-displayphoto-shrink_100_100/0/1595997774026?e=1671667200&v=beta&t=keeuuqYnGUITDmN1R03ksyimt1SXbKWaLSqD01asDHA"});
+                headerAvatar.addStyleClass("sapUiSmallMarginEnd");
+                headerFlexBox.addItem(headerAvatar);
+                headerFlexBox.addItem(new sap.m.Title({text:"Nitin Kumar", wrapping:true}));
+                oDynamicHeader.setSnappedHeading(headerFlexBox);
+
+                oDynamicHeader.insertExpandedContent(new sap.m.Text({text:"Associate Developer"}));
+                oDynamicHeader.insertSnappedContent(new sap.m.Text({text:"Associate Developer"}));
+                oDynamicHeader.setSnappedTitleOnMobile(new sap.m.Title({text:"Associate Developer"}));
+
+                objectPageLayout.setHeaderTitle(oDynamicHeader);
+
+
+                // Header Content
+                let headerContentFlexBox = new sap.m.FlexBox({wrap:"Wrap"});
+                let headerContentAvatar = new sap.m.Avatar({src:"https://media-exp1.licdn.com/dms/image/C5603AQFEgUiV9zkGXw/profile-displayphoto-shrink_100_100/0/1595997774026?e=1671667200&v=beta&t=keeuuqYnGUITDmN1R03ksyimt1SXbKWaLSqD01asDHA", displaySize:"L"});
+                headerContentAvatar.addStyleClass("sapUiSmallMarginEnd");
+                headerContentFlexBox.addItem(headerContentAvatar);
+                // objectPageLayout.addHeaderContent(new sap.m.Label({ text: "Personal description" }));
+                objectPageLayout.addHeaderContent(headerContentFlexBox);
+
+                // objectPageLayout.addHeaderContent(new sap.m.Text({ text: "some KPI info" }));
+
+
+
+                let view = new sap.ui.core.mvc.View("view", {height:"100vh"});
                 view.placeAt("uiArea");
                 let messageStrip = new sap.m.MessageStrip("msgStrip", {
                     text: "This Page is Under Construction  🚧",
@@ -43,27 +99,30 @@
                     showIcon: true,
                     type: "Warning"
                 });
+
+                objectPageLayout.placeAt("view");
+
                 // messageStrip.setTitle("Welcome");
                 // page.setTitleAlignment(sap.m.TitleAlignment.Center)
-                messageStrip.placeAt("view");
+                // messageStrip.placeAt("view");
 
-                let page = new sap.m.Page("page");
-                page.setTitle("Welcome To My Page 👋");
-                page.setTitleAlignment(sap.m.TitleAlignment.Center)
-                page.placeAt("view");
+                // let page = new sap.m.Page("page");
+                // page.setTitle("Welcome To My Page 👋");
+                // page.setTitleAlignment(sap.m.TitleAlignment.Center)
+                // page.placeAt("view");
 
-                let panel = new sap.m.Panel("panel");
-                panel.setHeaderText("About Me:");
-                panel.setExpandable(true);
-                panel.setExpanded(true);
-                console.log(panel.getHeight());
-                page.addContent(panel);
-                panel.placeAt("view");
+                // let panel = new sap.m.Panel("panel");
+                // panel.setHeaderText("About Me:");
+                // panel.setExpandable(true);
+                // panel.setExpanded(true);
+                // console.log(panel.getHeight());
+                // page.addContent(panel);
+                // panel.placeAt("view");
 
-                let label = new sap.m.Label("label");
-                label.setText("I am Nitin 👷🏼‍♂️");
-                label.setTextAlign("Right")
-                panel.addContent(label);
+                // let label = new sap.m.Label("label");
+                // label.setText("I am Nitin 👷🏼‍♂️");
+                // label.setTextAlign("Right")
+                // panel.addContent(label);
 
                 // let gridList = new sap.f.GridList("gridList", {
                 //     id: "gridList",
