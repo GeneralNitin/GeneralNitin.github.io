@@ -1,0 +1,1 @@
+window["sap-ui-config"]={compatVersion:"edge",async:true,language:"en",resourceroots:{"com.general.nitin":"./"},onInit:"module:sap/ui/core/ComponentSupport",theme:function(){try{return window.matchMedia("(prefers-color-scheme: dark)").matches?"sap_horizon_dark":"sap_horizon"}catch(e){console.warn("window.matchMedia not supported - keep default theme");return"sap_horizon"}}()};
