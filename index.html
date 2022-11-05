@@ -1,12 +1,166 @@
-<!DOCTYPE html><html><head>
-    <link rel="stylesheet" href="./css/style.css">
-    <script src="boot.js" defer=""></script>
-    <script id="sap-ui-bootstrap" src="resources/sap-ui-custom.js" defer=""></script>
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv='Content-Type' content='text/html;charset=UTF-8' />
+    <title>General Nitin</title>
+    <script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_horizon_dark" data-sap-ui-xx-bindingSyntax="complex" data-sap-ui-compatVersion="edge"
+        data-sap-ui-libs="sap.m"
+        data-sap-ui-async="true">
+        </script>
+    <script>
+        sap.ui.require([
+            "sap/ui/core/Core",
+            "sap/m/library"
+        ], (oCore, mobileLibrary) => {
+
+            const sapCore = sap.ui.getCore().loadLibrary("sap.ui.core", {
+                async: true,
+            });
+
+            const sapM = sap.ui.getCore().loadLibrary("sap.m", {
+                async: true,
+            });
+
+            const sapUxap = sap.ui.getCore().loadLibrary("sap.uxap", {
+                async: true,
+            });
+
+            const sapLayout = sap.ui.getCore().loadLibrary("sap.ui.layout", {
+                async: true,
+            });
+
+            var URLHelper = mobileLibrary.URLHelper;
+            
+            Promise.all([sapCore, sapM, sapUxap]).then(responses => {
+
+                let objectPageLayout = new sap.uxap.ObjectPageLayout("layout", {
+                    id: "ObjectPageLayout",
+                    upperCaseAnchorBar: false,
+                    showTitleInHeaderContent: true,
+                });
+
+                // Header
+                var oDynamicHeader = new sap.uxap.ObjectPageDynamicHeaderTitle("header");
+                var mBreadcrumbs = new sap.m.Breadcrumbs({ id: "breadcrumbsId", currentLocationText: "Home" });
+                oDynamicHeader.setBreadcrumbs(mBreadcrumbs);
+                
+                let headerHBox = new sap.m.HBox();
+                headerHBox.addItem(new sap.m.Title({text:"Nitin Kumar", wrapping:true}))
+                oDynamicHeader.setExpandedHeading(headerHBox);
+
+                let headerFlexBox = new sap.m.FlexBox({fitContainer:true, alignItems:"Center"});
+                let headerAvatar = new sap.m.Avatar({src:"https://media-exp1.licdn.com/dms/image/C5603AQFEgUiV9zkGXw/profile-displayphoto-shrink_400_400/0/1595997774026?e=1672272000&v=beta&t=t0n6BnPzpd5AWLy-LeWtqkFn1tT_20bROV_huItqSZE"});
+                headerAvatar.addStyleClass("sapUiSmallMarginEnd");
+                headerFlexBox.addItem(headerAvatar);
+                headerFlexBox.addItem(new sap.m.Title({text:"Nitin Kumar", wrapping:true}));
+                oDynamicHeader.setSnappedHeading(headerFlexBox);
+
+                oDynamicHeader.insertExpandedContent(new sap.m.Text({text:"Associate Developer"}));
+                oDynamicHeader.insertSnappedContent(new sap.m.Text({text:"Associate Developer"}));
+                oDynamicHeader.setSnappedTitleOnMobile(new sap.m.Title({text:"Associate Developer"}));
+
+                objectPageLayout.setHeaderTitle(oDynamicHeader);
+
+
+                // Header Content
+                let headerContentFlexBox = new sap.m.FlexBox({wrap:"Wrap"});
+                let headerContentAvatar = new sap.m.Avatar({src:"https://media-exp1.licdn.com/dms/image/C5603AQFEgUiV9zkGXw/profile-displayphoto-shrink_400_400/0/1595997774026?e=1672272000&v=beta&t=t0n6BnPzpd5AWLy-LeWtqkFn1tT_20bROV_huItqSZE", displaySize:"L"});
+                headerContentAvatar.addStyleClass("sapUiSmallMarginEnd");
+                headerContentFlexBox.addItem(headerContentAvatar);
+
+                // Header Content Info
+                let headerContentVerticalLayout1 = new sap.ui.layout.VerticalLayout("hcVL1")
+
+                let emailLink = new sap.m.Link({text:"connect.nitinkumar@gmail.com"})
+                emailLink.attachPress(()=>{
+                    URLHelper.triggerEmail("connect.nitinkumar@gmail.com", null, null, null, null, true);
+                });
+                headerContentVerticalLayout1.addContent(emailLink);
+
+                let spacelabel1 = new sap.m.Label({text:""});
+                headerContentVerticalLayout1.addContent(spacelabel1);   
+
+
+                let gitHubLink = new sap.m.Link({text:"GitHub"});
+                gitHubLink.attachPress(()=>{
+                    URLHelper.redirect("https://github.com/GeneralNitin", true);
+                });
+                headerContentVerticalLayout1.addContent(gitHubLink);   
+
+                headerContentVerticalLayout1.addStyleClass("sapUiSmallMarginBeginEnd");
+                headerContentFlexBox.addItem(headerContentVerticalLayout1);
+
+                // Header Content Social Media Link
+                let headerContentHorizontalLayout1 = new sap.ui.layout.HorizontalLayout("hcHL1")
+
+                let linkedInImage = new sap.m.Image({src:"https://static-00.iconduck.com/assets.00/linkedin-original-icon-256x256-bckcotyp.png", height:"20px", width:"20px"});
+                linkedInImage.attachPress(()=>{
+                    URLHelper.redirect("https://www.linkedin.com/in/nitinkumar30/", true);
+                });
+                headerContentHorizontalLayout1.addContent(linkedInImage);   
+
+                let twitterImage = new sap.m.Image({src:"https://static-00.iconduck.com/assets.00/instagram-icon-256x256-4wmx3xma.png", height:"20px", width:"20px"});  
+                twitterImage.attachPress(()=>{
+                    URLHelper.redirect("https://www.instagram.com/nitinkum4r/", true);
+                });
+                twitterImage.addStyleClass("sapUiSmallMarginBegin");
+                headerContentHorizontalLayout1.addContent(twitterImage);
+                headerContentHorizontalLayout1.addStyleClass("sapUiSmallMarginBeginEnd");
+
+                headerContentFlexBox.addItem(headerContentHorizontalLayout1);
+
+                // Description
+                let headerContentVerticalLayout2 = new sap.ui.layout.VerticalLayout("hcVL2")
+                headerContentVerticalLayout2.addStyleClass("sapUiSmallMarginBeginEnd");
+
+                let descriptionLabel = new sap.m.Label({text:"Hi! This is Nitin and I am an Associate Developer"});
+                headerContentVerticalLayout2.addContent(descriptionLabel);
+
+                let descVBox = new sap.m.VBox("descVBox1");
+                let spacelabel2 = new sap.m.Label({text:""});
+                let descriptionLabel2 = new sap.m.Label({text:"Page Completion"});
+                let descriptionProgressIndicator = new sap.m.ProgressIndicator({percentValue:"5", displayValue:"5%"});
+
+                descVBox.addItem(spacelabel2);
+                descVBox.addItem(descriptionLabel2);
+                descVBox.addItem(descriptionProgressIndicator);
+
+                headerContentVerticalLayout2.addContent(descVBox);
+
+                headerContentFlexBox.addItem(headerContentVerticalLayout2);
+
+                // Location
+                let headerContentVerticalLayout3 = new sap.ui.layout.VerticalLayout("hcVL3")
+                headerContentVerticalLayout3.addStyleClass("sapUiSmallMarginBeginEnd");
+
+                let location = new sap.m.Label({text:"Bangalore, India"});
+                headerContentVerticalLayout3.addContent(location);
+
+                headerContentFlexBox.addItem(headerContentVerticalLayout3);
+
+                objectPageLayout.addHeaderContent(headerContentFlexBox);
+
+                let view = new sap.ui.core.mvc.View("view", {height:"100vh"});
+                view.placeAt("uiArea");
+                let messageStrip = new sap.m.MessageStrip("msgStrip", {
+                    text: "This Page is Under Construction  🚧",
+                    showCloseButton: true,
+                    showIcon: true,
+                    type: "Warning"
+                });
+
+                objectPageLayout.placeAt("view");
+            });
+        });
+
+    </script>
 </head>
 
-<body class="sapUiBody loading" id="content">
-    <div data-sap-ui-component="" data-name="com.general.nitin" data-id="container" data-settings="{&quot;id&quot; : &quot;codejam&quot;}">
-    </div>
+<body class="sapUiBody">
+    <div id="uiArea"></div>
+</body>
 
-
-</body></html>
+</html>
